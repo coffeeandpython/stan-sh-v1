@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  Calendar as CalendarIcon, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  Calendar as CalendarIcon,
   Clock,
   MapPin,
   User,
-  Plus
+  Plus,
+  Phone
 } from 'lucide-react';
 import { Inspection, Property } from '../types';
 
@@ -18,6 +19,8 @@ interface CalendarViewProps {
 const CalendarView: React.FC<CalendarViewProps> = ({ inspections, properties }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [view, setView] = useState<'month' | 'week'>('month');
+  const [hoveredEvent, setHoveredEvent] = useState<{ inspection: Inspection; property: Property; x: number; y: number } | null>(null);
+  const [touchedEvent, setTouchedEvent] = useState<{ inspection: Inspection; property: Property } | null>(null);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -129,6 +132,35 @@ const CalendarView: React.FC<CalendarViewProps> = ({ inspections, properties }) 
     );
   };
 
+  const handleEventHover = (inspection: Inspection, property: Property, event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setHoveredEvent({
+      inspection,
+      property,
+      x: rect.left + rect.width / 2,
+      y: rect.top - 10
+    });
+  };
+
+  const handleEventTouch = (inspection: Inspection, property: Property) => {
+    setTouchedEvent({ inspection, property });
+    // Auto-hide after 5 seconds
+    setTimeout(() => setTouchedEvent(null), 5000);
+  };
+
+  const formatInspectionType = (type: string) => {
+    return type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  };
+
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Header */}
@@ -233,19 +265,24 @@ const CalendarView: React.FC<CalendarViewProps> = ({ inspections, properties }) 
                   <div className="space-y-1 overflow-hidden">
                     {dayInspections.slice(0, 2).map((inspection) => {
                       const property = properties.find(p => p.id === inspection.propertyId);
+                      if (!property) return null;
+
                       return (
                         <div
                           key={inspection.id}
-                          className={`text-xs p-1 rounded border ${getStatusColor(inspection.status)}`}
+                          className={`text-xs p-1 rounded border cursor-pointer hover:opacity-80 transition-opacity ${getStatusColor(inspection.status)}`}
+                          onMouseEnter={(e) => handleEventHover(inspection, property, e)}
+                          onMouseLeave={() => setHoveredEvent(null)}
+                          onClick={() => handleEventTouch(inspection, property)}
                         >
                           <div className="flex items-center space-x-1">
                             <div className={`w-2 h-2 rounded-full ${getInspectionTypeColor(inspection.type)}`}></div>
                             <span className="truncate font-medium">
-                              {inspection.type.replace('-', ' ')}
+                              {formatTime(inspection.scheduledDate)} {formatInspectionType(inspection.type)}
                             </span>
                           </div>
                           <div className="truncate text-xs opacity-75">
-                            {property?.address.split(' ')[0]} {property?.address.split(' ')[1]}
+                            {property.address.split(' ').slice(0, 3).join(' ')}
                           </div>
                         </div>
                       );
@@ -361,6 +398,144 @@ const CalendarView: React.FC<CalendarViewProps> = ({ inspections, properties }) 
           </div>
         </div>
       </div>
+
+      {/* Hover Tooltip */}
+      {hoveredEvent && (
+        <div
+          className="fixed z-50 pointer-events-none"
+          style={{
+            left: `${hoveredEvent.x}px`,
+            top: `${hoveredEvent.y}px`,
+            transform: 'translateX(-50%) translateY(-100%)'
+          }}
+        >
+          <div className="bg-gray-900 text-white p-4 rounded-xl shadow-2xl max-w-xs border border-gray-700">
+            <div className="space-y-3">
+              <div>
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className={`w-3 h-3 rounded-full ${getInspectionTypeColor(hoveredEvent.inspection.type)}`}></div>
+                  <span className="font-semibold text-sm">
+                    {formatInspectionType(hoveredEvent.inspection.type)}
+                  </span>
+                  <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(hoveredEvent.inspection.status).replace('bg-', 'bg-opacity-20 bg-').replace('text-', 'text-').replace('border-', 'border-opacity-30 border-')}`}>
+                    {hoveredEvent.inspection.status}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-1 text-sm text-gray-300">
+                  <Clock className="h-4 w-4" />
+                  <span>{formatTime(hoveredEvent.inspection.scheduledDate)}</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-start space-x-1 text-sm">
+                  <MapPin className="h-4 w-4 mt-0.5 text-gray-400" />
+                  <span className="text-gray-200">{hoveredEvent.property.address}</span>
+                </div>
+                <div className="text-xs text-gray-400 mt-1">
+                  {hoveredEvent.property.community} • {hoveredEvent.property.planNumber}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center space-x-1 text-sm">
+                  <User className="h-4 w-4 text-gray-400" />
+                  <span className="text-gray-200">{hoveredEvent.inspection.inspector.name}</span>
+                </div>
+                <div className="flex items-center space-x-1 text-sm">
+                  <Phone className="h-4 w-4 text-gray-400" />
+                  <span className="text-gray-200">{hoveredEvent.property.siteContact.phone}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Touch Tooltip */}
+      {touchedEvent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-gray-200 dark:border-gray-700">
+            <div className="space-y-4">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <div className={`w-4 h-4 rounded-full ${getInspectionTypeColor(touchedEvent.inspection.type)}`}></div>
+                    <span className="font-bold text-lg text-gray-900 dark:text-white">
+                      {formatInspectionType(touchedEvent.inspection.type)}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setTouchedEvent(null)}
+                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-2xl leading-none"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <div className="flex items-center space-x-2 mb-2">
+                  <Clock className="h-5 w-5 text-gray-500" />
+                  <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
+                    {formatTime(touchedEvent.inspection.scheduledDate)}
+                  </span>
+                  <span className={`px-3 py-1 text-sm rounded-full font-medium ${getStatusColor(touchedEvent.inspection.status)}`}>
+                    {touchedEvent.inspection.status}
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-start space-x-2 mb-2">
+                  <MapPin className="h-5 w-5 mt-0.5 text-gray-500" />
+                  <div>
+                    <div className="text-gray-900 dark:text-white font-medium">
+                      {touchedEvent.property.address}
+                    </div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">
+                      {touchedEvent.property.community} • {touchedEvent.property.planNumber}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <User className="h-5 w-5 text-gray-500" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    Inspector: {touchedEvent.inspection.inspector.name}
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-5 w-5 text-gray-500" />
+                  <span className="text-gray-700 dark:text-gray-300">
+                    Site Contact: {touchedEvent.property.siteContact.phone}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex space-x-3 pt-2">
+                <button
+                  onClick={() => {
+                    const url = `https://maps.google.com/?q=${encodeURIComponent(touchedEvent.property.address)}`;
+                    window.open(url, '_blank');
+                  }}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+                >
+                  Navigate
+                </button>
+                <button
+                  onClick={() => {
+                    window.open(`tel:${touchedEvent.property.siteContact.phone}`, '_self');
+                  }}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-xl font-medium transition-colors"
+                >
+                  Call
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
