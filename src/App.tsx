@@ -21,6 +21,7 @@ import AddProperty from './components/AddProperty';
 import RequestInspectionModal from './components/RequestInspectionModal';
 import UploadCorrections from './components/UploadCorrections';
 import AdminApp from './components/admin/AdminApp';
+import InspectorApp from './components/inspector/InspectorApp';
 import { Property, Inspection } from './types';
 import { mockProperties, mockInspections } from './data/mockData';
 
@@ -35,11 +36,13 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isInspectorMode, setIsInspectorMode] = useState(false);
 
-  // Check URL for admin mode
+  // Check URL for admin or inspector mode
   useEffect(() => {
     const path = window.location.pathname;
     setIsAdminMode(path.includes('/admin'));
+    setIsInspectorMode(path.includes('/ins/'));
   }, []);
 
   useEffect(() => {
@@ -75,24 +78,26 @@ function App() {
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">SystemHause</h1>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {isAdminMode ? 'Admin Portal' : 'MI Homes Portal'}
+                  {isAdminMode ? 'Admin Portal' : isInspectorMode ? 'Inspector Portal' : 'MI Homes Portal'}
                 </p>
               </div>
             </div>
           </div>
           
           <div className="flex items-center space-x-4">
-            <button
-              onClick={() => {
-                const newMode = !isAdminMode;
-                setIsAdminMode(newMode);
-                window.history.pushState({}, '', newMode ? '/admin' : '/');
-              }}
-              className="hidden sm:flex items-center space-x-2 px-3 py-2 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              <Settings className="h-4 w-4" />
-              <span>{isAdminMode ? 'Builder View' : 'Admin View'}</span>
-            </button>
+            {!isInspectorMode && (
+              <button
+                onClick={() => {
+                  const newMode = !isAdminMode;
+                  setIsAdminMode(newMode);
+                  window.history.pushState({}, '', newMode ? '/admin' : '/');
+                }}
+                className="hidden sm:flex items-center space-x-2 px-3 py-2 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              >
+                <Settings className="h-4 w-4" />
+                <span>{isAdminMode ? 'Builder View' : 'Admin View'}</span>
+              </button>
+            )}
 
             <button
               onClick={() => setDarkMode(!darkMode)}
@@ -115,11 +120,11 @@ function App() {
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
-                  {isAdminMode ? 'SA' : 'JD'}
+                  {isAdminMode ? 'SA' : isInspectorMode ? 'DC' : 'JD'}
                 </span>
               </div>
               <span className="text-sm font-medium text-gray-900 dark:text-white hidden sm:block">
-                {isAdminMode ? 'Stan' : 'John Davis'}
+                {isAdminMode ? 'Stan' : isInspectorMode ? 'David Chen' : 'John Davis'}
               </span>
             </div>
           </div>
@@ -219,6 +224,11 @@ function App() {
   // If in admin mode, render AdminApp
   if (isAdminMode) {
     return <AdminApp />;
+  }
+
+  // If in inspector mode, render InspectorApp
+  if (isInspectorMode) {
+    return <InspectorApp />;
   }
 
   return (

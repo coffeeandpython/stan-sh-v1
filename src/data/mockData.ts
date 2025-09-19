@@ -670,10 +670,193 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-09-24'
   },
 
-  // October 2025 Events
+  // Current Date Events (Today and next few days for demo)
   {
     id: '27',
+    propertyId: '1',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-19T08:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Morning pre-rock inspection - priority job',
+    photos: [],
+    createdAt: '2025-09-18T10:00:00Z',
+    updatedAt: '2025-09-18T10:00:00Z'
+  },
+  {
+    id: '28',
     propertyId: '2',
+    type: 'poly-test',
+    status: 'in-progress',
+    scheduledDate: '2025-09-19T14:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Poly test - follow up from yesterday',
+    photos: ['https://images.pexels.com/photos/2724748/pexels-photo-2724748.jpeg?auto=compress&cs=tinysrgb&w=400'],
+    createdAt: '2025-09-18T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+  {
+    id: '29',
+    propertyId: '3',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-09-19T16:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final inspection before certification',
+    photos: [],
+    createdAt: '2025-09-18T10:00:00Z',
+    updatedAt: '2025-09-18T10:00:00Z'
+  },
+  {
+    id: '30',
+    propertyId: '4',
+    type: 'blower-door',
+    status: 'passed',
+    scheduledDate: '2025-09-19T09:00:00Z',
+    completedDate: '2025-09-19T09:30:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Blower door test completed successfully - excellent results',
+    photos: [
+      'https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=400'
+    ],
+    reportUrl: '/reports/blower-door-4.pdf',
+    createdAt: '2025-09-18T10:00:00Z',
+    updatedAt: '2025-09-19T09:30:00Z'
+  },
+  {
+    id: '31',
+    propertyId: '5',
+    type: 'pre-rock',
+    status: 'failed',
+    scheduledDate: '2025-09-19T11:00:00Z',
+    completedDate: '2025-09-19T11:45:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'HVAC rough-in failed - needs corrections before re-inspection',
+    photos: ['https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400'],
+    reportUrl: '/reports/pre-rock-5-failed.pdf',
+    issues: [
+      {
+        id: '3',
+        description: 'HVAC ductwork not properly secured - safety concern',
+        severity: 'high',
+        location: 'Basement mechanical room',
+        photos: ['https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400'],
+        resolved: false
+      }
+    ],
+    createdAt: '2025-09-18T10:00:00Z',
+    updatedAt: '2025-09-19T11:45:00Z'
+  },
+
+  // Tomorrow's events
+  {
+    id: '32',
+    propertyId: '6',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-20T08:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Tomorrow morning - first inspection of the day',
+    photos: [],
+    createdAt: '2025-09-19T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+  {
+    id: '33',
+    propertyId: '7',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-09-20T10:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Poly test for new construction',
+    photos: [],
+    createdAt: '2025-09-19T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+  {
+    id: '34',
+    propertyId: '8',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-09-20T14:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final walkthrough - ready for certification',
+    photos: [],
+    createdAt: '2025-09-19T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+
+  // Day after tomorrow events
+  {
+    id: '35',
+    propertyId: '1',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-09-21T09:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Energy efficiency testing',
+    photos: [],
+    createdAt: '2025-09-19T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+  {
+    id: '36',
+    propertyId: '2',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-21T11:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Follow-up pre-rock inspection',
+    photos: [],
+    createdAt: '2025-09-19T10:00:00Z',
+    updatedAt: '2025-09-19T10:00:00Z'
+  },
+
+  // October 2025 Events (keeping some original ones)
+  {
+    id: '37',
+    propertyId: '3',
     type: 'pre-rock',
     status: 'scheduled',
     scheduledDate: '2025-10-02T09:30:00Z',
@@ -688,8 +871,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-09-28'
   },
   {
-    id: '28',
-    propertyId: '3',
+    id: '38',
+    propertyId: '4',
     type: 'poly-test',
     status: 'scheduled',
     scheduledDate: '2025-10-05T11:00:00Z',
@@ -704,8 +887,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-01'
   },
   {
-    id: '29',
-    propertyId: '4',
+    id: '39',
+    propertyId: '5',
     type: 'final',
     status: 'scheduled',
     scheduledDate: '2025-10-08T16:00:00Z',
@@ -720,8 +903,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-04'
   },
   {
-    id: '30',
-    propertyId: '5',
+    id: '40',
+    propertyId: '6',
     type: 'pre-rock',
     status: 'scheduled',
     scheduledDate: '2025-10-12T08:45:00Z',
@@ -736,8 +919,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-08'
   },
   {
-    id: '31',
-    propertyId: '6',
+    id: '41',
+    propertyId: '7',
     type: 'blower-door',
     status: 'scheduled',
     scheduledDate: '2025-10-15T13:30:00Z',
@@ -752,8 +935,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-10'
   },
   {
-    id: '32',
-    propertyId: '7',
+    id: '42',
+    propertyId: '8',
     type: 'poly-test',
     status: 'scheduled',
     scheduledDate: '2025-10-18T10:15:00Z',
@@ -768,8 +951,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-14'
   },
   {
-    id: '33',
-    propertyId: '8',
+    id: '43',
+    propertyId: '1',
     type: 'final',
     status: 'scheduled',
     scheduledDate: '2025-10-22T15:45:00Z',
@@ -784,8 +967,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-18'
   },
   {
-    id: '34',
-    propertyId: '1',
+    id: '44',
+    propertyId: '2',
     type: 'pre-rock',
     status: 'scheduled',
     scheduledDate: '2025-10-25T09:15:00Z',
@@ -800,8 +983,8 @@ export const mockInspections: Inspection[] = [
     updatedAt: '2025-10-20'
   },
   {
-    id: '35',
-    propertyId: '2',
+    id: '45',
+    propertyId: '3',
     type: 'blower-door',
     status: 'scheduled',
     scheduledDate: '2025-10-28T12:00:00Z',
