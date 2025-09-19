@@ -1,0 +1,104 @@
+## Call Summary
+
+This was a consultation call between Stan, who runs a third-party energy code inspection business for home builders in the DFW area, and Baloo, a freelance developer. Stan processes about 3,000 homes annually across 30-35 municipalities and wants to streamline his current manual, Dropbox-based workflow.
+
+Stan's business involves:
+- Energy code compliance calculations and reports for new home permits
+- Pre-construction inspections (pre-rock/poly seal)  
+- Final inspections and blower door testing
+- Managing correction photos from builders
+- Issuing compliance letters to builders
+
+He's frustrated with his current manual process and wants automation while keeping costs reasonable. Baloo proposed a custom web application for $8,500-$17,000 with $25/month hosting, and Stan hired him for a $600 initial scoping phase.
+
+## Detailed Requirements for the Application
+
+### Core Business Process Flow
+
+**1. Permit/Plan Review Phase**
+- Receive new home orders via email with plan numbers and addresses
+- Interface with Texas A&M Energy Systems Laboratory (IC3 software) to generate energy compliance reports
+- Auto-populate plan templates based on plan numbers
+- Generate and send compliance letters to builders (city-specific templates)
+- Store all documentation in organized folder structure
+
+**2. Inspection Scheduling System**
+- Email-based or web portal requests from builders for inspections
+- Address parsing and community identification
+- Calendar integration for inspector scheduling
+- Automated route optimization for 2-3 field inspectors across DFW area
+- Real-time calendar sharing across team devices
+
+**3. Field Inspection Management**
+- Replace FastField with integrated inspection forms
+- Mobile-friendly interface for inspectors
+- Photo capture and issue documentation
+- Automated report generation and email distribution
+- Integration with existing inspection templates
+
+**4. Correction Tracking Workflow**
+- Automated system for builders to upload correction photos
+- Admin approval workflow for photo verification
+- Automated generation of pre-rock clearance letters
+- Status tracking (red/green dot system) for inspection phases
+
+**5. Final Inspection Process**
+- Requirement verification (insulation certificate photo, closing date)
+- Blower door testing scheduling and results
+- City-specific final letter generation
+- Automatic filing and status updates
+
+### Technical Requirements
+
+**User Management**
+- No strict user accounts - email domain-based access (e.g., MI Homes email = access to MI Homes properties)
+- Admin panel for Stan's team
+- Builder portal for status checking and document downloads
+- Role-based permissions
+
+**Data Management**
+- Migration from Dropbox folder structure to database
+- File storage and organization by community/address
+- Historical data preservation
+- Search functionality by address, community, builder
+
+**Integration Needs**
+- Texas A&M Energy Systems Laboratory API (if available)
+- Email integration for automated notifications
+- Calendar system (iCal replacement)
+- PDF generation for compliance letters
+- Digital signature capability
+
+**Mobile/Web Requirements**
+- Progressive Web App (PWA) for mobile access
+- Works on iOS/Android without app store
+- Desktop web interface
+- Offline capability for field inspectors
+
+**Automation Features**
+- Auto-routing for inspectors based on location
+- Template-based document generation
+- Email notifications and confirmations
+- Status tracking and alerts
+- Form letter automation with address/date insertion
+
+### Business Logic Rules
+
+**Inspection Prerequisites**
+- Cannot schedule final inspection without completed pre-rock clearance
+- Cannot issue final letter without closing date and insulation certificate
+- Automatic scheduling of testing 1-2 weeks before closing date
+
+**File Organization**
+- Maintain community-based folder structure
+- Separate folders for different inspection phases
+- Automatic file naming conventions
+- Correction photo filing system
+
+**Reporting and Tracking**
+- Audit trail for all letters sent
+- Status dashboard for properties in progress
+- Filter/sort capabilities by builder, community, status
+- Historical reporting
+
+The application needs to handle the complexity of multiple builders, communities, municipalities, and inspection phases while maintaining the lean operation Stan prefers. The solution should eliminate manual data entry, reduce email back-and-forth, and provide clear visibility into the status of each property throughout the inspection process.

@@ -377,5 +377,442 @@ export const mockInspections: Inspection[] = [
     ],
     createdAt: '2025-09-20',
     updatedAt: '2025-10-03'
+  },
+  // Additional inspections for better calendar display
+  {
+    id: '9',
+    propertyId: '3',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-01-20T09:30:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Initial pre-rock inspection',
+    photos: [],
+    createdAt: '2025-01-18',
+    updatedAt: '2025-01-18'
+  },
+  {
+    id: '10',
+    propertyId: '4',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-01-20T14:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Poly test scheduled',
+    photos: [],
+    createdAt: '2025-01-18',
+    updatedAt: '2025-01-18'
+  },
+  {
+    id: '11',
+    propertyId: '5',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-01-21T10:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final inspection',
+    photos: [],
+    createdAt: '2025-01-19',
+    updatedAt: '2025-01-19'
+  },
+  {
+    id: '12',
+    propertyId: '6',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-01-21T15:30:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Blower door test',
+    photos: [],
+    createdAt: '2025-01-19',
+    updatedAt: '2025-01-19'
+  },
+  {
+    id: '13',
+    propertyId: '2',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-01-22T09:00:00Z',
+    inspector: {
+      name: 'Jennifer Walsh',
+      phone: '(555) 777-8888',
+      email: 'jennifer.walsh@systemhause.com'
+    },
+    notes: 'Follow-up pre-rock inspection',
+    photos: [],
+    createdAt: '2025-01-20',
+    updatedAt: '2025-01-20'
+  },
+  {
+    id: '14',
+    propertyId: '7',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-01-22T11:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Poly test - second attempt',
+    photos: [],
+    createdAt: '2025-01-20',
+    updatedAt: '2025-01-20'
+  },
+  {
+    id: '15',
+    propertyId: '8',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-01-22T16:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Final inspection for certification',
+    photos: [],
+    createdAt: '2025-01-20',
+    updatedAt: '2025-01-20'
+  },
+  {
+    id: '16',
+    propertyId: '1',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-01-23T08:30:00Z',
+    inspector: {
+      name: 'Jennifer Walsh',
+      phone: '(555) 777-8888',
+      email: 'jennifer.walsh@systemhause.com'
+    },
+    notes: 'Blower door test for energy efficiency',
+    photos: [],
+    createdAt: '2025-01-21',
+    updatedAt: '2025-01-21'
+  },
+  {
+    id: '17',
+    propertyId: '3',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-01-23T13:15:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final walkthrough and certification',
+    photos: [],
+    createdAt: '2025-01-21',
+    updatedAt: '2025-01-21'
+  },
+
+  // September 2025 Events
+  {
+    id: '18',
+    propertyId: '1',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-05T08:30:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Pre-rock inspection - new construction',
+    photos: [],
+    createdAt: '2025-09-01',
+    updatedAt: '2025-09-01'
+  },
+  {
+    id: '19',
+    propertyId: '2',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-09-05T14:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Poly test inspection',
+    photos: [],
+    createdAt: '2025-09-01',
+    updatedAt: '2025-09-01'
+  },
+  {
+    id: '20',
+    propertyId: '3',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-09-10T10:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final inspection before certification',
+    photos: [],
+    createdAt: '2025-09-05',
+    updatedAt: '2025-09-05'
+  },
+  {
+    id: '21',
+    propertyId: '4',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-12T09:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Initial pre-rock inspection',
+    photos: [],
+    createdAt: '2025-09-08',
+    updatedAt: '2025-09-08'
+  },
+  {
+    id: '22',
+    propertyId: '5',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-09-15T11:30:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Blower door test for energy efficiency',
+    photos: [],
+    createdAt: '2025-09-10',
+    updatedAt: '2025-09-10'
+  },
+  {
+    id: '23',
+    propertyId: '6',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-09-18T15:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Polymer test inspection',
+    photos: [],
+    createdAt: '2025-09-12',
+    updatedAt: '2025-09-12'
+  },
+  {
+    id: '24',
+    propertyId: '7',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-09-22T13:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Final walkthrough inspection',
+    photos: [],
+    createdAt: '2025-09-18',
+    updatedAt: '2025-09-18'
+  },
+  {
+    id: '25',
+    propertyId: '8',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-09-25T08:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Pre-rock inspection for new build',
+    photos: [],
+    createdAt: '2025-09-20',
+    updatedAt: '2025-09-20'
+  },
+  {
+    id: '26',
+    propertyId: '1',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-09-28T14:30:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Energy efficiency testing',
+    photos: [],
+    createdAt: '2025-09-24',
+    updatedAt: '2025-09-24'
+  },
+
+  // October 2025 Events
+  {
+    id: '27',
+    propertyId: '2',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-10-02T09:30:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Pre-rock inspection - electrical phase',
+    photos: [],
+    createdAt: '2025-09-28',
+    updatedAt: '2025-09-28'
+  },
+  {
+    id: '28',
+    propertyId: '3',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-10-05T11:00:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Poly test - quality check',
+    photos: [],
+    createdAt: '2025-10-01',
+    updatedAt: '2025-10-01'
+  },
+  {
+    id: '29',
+    propertyId: '4',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-10-08T16:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Final certification inspection',
+    photos: [],
+    createdAt: '2025-10-04',
+    updatedAt: '2025-10-04'
+  },
+  {
+    id: '30',
+    propertyId: '5',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-10-12T08:45:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Pre-rock inspection - plumbing rough-in',
+    photos: [],
+    createdAt: '2025-10-08',
+    updatedAt: '2025-10-08'
+  },
+  {
+    id: '31',
+    propertyId: '6',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-10-15T13:30:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Blower door test - air leakage',
+    photos: [],
+    createdAt: '2025-10-10',
+    updatedAt: '2025-10-10'
+  },
+  {
+    id: '32',
+    propertyId: '7',
+    type: 'poly-test',
+    status: 'scheduled',
+    scheduledDate: '2025-10-18T10:15:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Polymer system testing',
+    photos: [],
+    createdAt: '2025-10-14',
+    updatedAt: '2025-10-14'
+  },
+  {
+    id: '33',
+    propertyId: '8',
+    type: 'final',
+    status: 'scheduled',
+    scheduledDate: '2025-10-22T15:45:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Final inspection and documentation',
+    photos: [],
+    createdAt: '2025-10-18',
+    updatedAt: '2025-10-18'
+  },
+  {
+    id: '34',
+    propertyId: '1',
+    type: 'pre-rock',
+    status: 'scheduled',
+    scheduledDate: '2025-10-25T09:15:00Z',
+    inspector: {
+      name: 'David Chen',
+      phone: '(555) 111-2222',
+      email: 'david.chen@systemhause.com'
+    },
+    notes: 'Pre-rock follow-up inspection',
+    photos: [],
+    createdAt: '2025-10-20',
+    updatedAt: '2025-10-20'
+  },
+  {
+    id: '35',
+    propertyId: '2',
+    type: 'blower-door',
+    status: 'scheduled',
+    scheduledDate: '2025-10-28T12:00:00Z',
+    inspector: {
+      name: 'Sarah Mitchell',
+      phone: '(555) 333-4444',
+      email: 'sarah.mitchell@systemhause.com'
+    },
+    notes: 'Energy efficiency compliance test',
+    photos: [],
+    createdAt: '2025-10-24',
+    updatedAt: '2025-10-24'
   }
 ];

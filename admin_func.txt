@@ -1,0 +1,345 @@
+# SystemHause Admin Portal - Comprehensive Documentation
+
+## Project Overview
+SystemHause is a comprehensive inspection management system designed for home construction inspection workflows. The admin portal provides centralized management capabilities for properties, inspectors, builders, scheduling, and review processes.
+
+## Technical Stack
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS with dark mode support
+- **Icons**: Lucide React
+- **State Management**: React hooks (useState, useEffect, useMemo)
+- **Architecture**: Component-based with centralized routing
+
+## Main Application Structure
+
+### Core Files
+- `src/components/admin/AdminApp.tsx` - Main routing and layout component
+- `src/types/index.ts` - TypeScript interfaces and type definitions
+- `src/data/mockData.ts` - Property and inspection mock data
+- `src/data/adminMockData.ts` - Admin-specific mock data (inspectors, builders, KPIs)
+
+### Navigation & Layout
+- **Responsive Sidebar Navigation**: Collapsible sidebar with navigation items
+- **Header**: Centralized search bar, theme toggle, notifications, user profile
+- **Theme Support**: Full dark/light mode implementation
+- **Responsive Design**: Mobile-friendly with Tailwind breakpoints
+
+## Key Features & Components
+
+### 1. Dashboard (`AdminDashboard.tsx`)
+**Features:**
+- Welcome message with user personalization
+- KPI cards showing key metrics (Total Properties, Active Inspections, Pass Rate)
+- Activity feed showing recent system activities
+- Real-time data visualization
+
+**Design Notes:**
+- Clean 3-column KPI layout (removed Total Inspectors card per user request)
+- No priority indicators (removed high/medium/low priorities for cleaner design)
+- Activity cards with consistent styling and hover effects
+- Status icons for different activity types
+
+**Data Sources:**
+- `mockAdminKPI` for dashboard metrics
+- `mockActivityFeed` for recent activities
+
+### 2. Properties Management (`PropertiesManagement.tsx`)
+**Features:**
+- Comprehensive property listing with advanced filtering
+- Multi-select capabilities for bulk operations
+- Sorting by address, stage, status, closing date, last activity
+- Pagination with configurable items per page
+- Search functionality across multiple fields
+- Property stage progress visualization
+- Inspector assignment tracking
+- Closing date monitoring with urgency indicators
+
+**Key Functionalities:**
+- Filter by stage (pre-rock, poly-test, final, complete)
+- Filter by status (pending, in-progress, passed, failed, scheduled)
+- Filter by builder and community
+- Bulk operations (assign inspector, send notifications, export)
+- Add new property functionality
+- Export capabilities
+
+**Data Integration:**
+- Combines properties, inspections, inspectors, and builders data
+- Real-time workload and assignment tracking
+- Days in current stage calculation
+- Builder assignment based on community matching
+
+### 3. Inspector Management (`InspectorManagement.tsx`)
+**Features:**
+- Inspector profile management
+- Service area and specialty tracking
+- Workload monitoring and capacity management
+- Performance metrics (completion rate, average time, rating)
+- Contact information management
+
+**Removed Features (per user request):**
+- Active/Inactive status indicators
+- Status summary cards
+- Michael Rodriguez inspector (removed from data)
+
+**Design Notes:**
+- Clean inspector cards focusing on contact info and service areas
+- No status badges for cleaner appearance
+- Service specialties: pre-rock, poly-test, final, blower-door
+- Performance tracking: completion rates, inspection times, ratings
+
+### 4. Calendar Scheduling (`CalendarScheduling.tsx`)
+**Features:**
+- Multiple view modes (Month, Week, Day) with Month as default
+- Interactive calendar with inspection scheduling
+- Event details with property addresses and times
+- Inspector assignment visualization
+- Multi-day event support
+
+**Enhanced Data:**
+- 18+ additional events added for September and October 2025
+- Various inspection types distributed throughout months
+- Realistic scheduling with proper time slots
+- Inspector workload distribution
+
+**Design Improvements:**
+- Month view set as default (changed from week view)
+- Better event information display beyond basic times
+- Multiple events per day support
+- Enhanced event cards with property context
+
+### 5. Builder Management (`BuilderManagement.tsx`)
+**Features:**
+- Builder profile and contact management
+- Community association tracking
+- Performance metrics (correction rates, total properties)
+- Contract status monitoring
+- Domain and contact information
+
+**Data Updates:**
+- Highland Construction renamed to "HL Homes"
+- Positive messaging for inactive builders
+- Updated contact domains to match company names
+- Realistic correction rate data (1.8% - 5.1%)
+
+### 6. Review Center (`InspectionReviewCenter.tsx`)
+**Features:**
+- Correction request management and review
+- Photo gallery integration with direct display
+- Approval/rejection workflow
+- Builder communication tracking
+- Issue resolution monitoring
+
+**Key Improvements Made:**
+- Photos display directly in request details (no separate click required)
+- Proper photo URL management (replaced external URLs with local imgs/a1.jpg)
+- Fixed photo rendering issues (was using demoPhotos instead of actual request photos)
+- Grid layout for multiple correction photos
+- Photo modal for enlarged viewing
+
+**Workflow:**
+- Pending correction requests require admin review
+- Photos show before/after correction work
+- Builder notes and admin review notes
+- Status tracking (pending, approved, rejected)
+
+### 7. Reports & Analytics (`ReportsAnalytics.tsx`)
+**Features:**
+- Report generation and management
+- Performance analytics
+- Export capabilities in multiple formats
+- Historical data analysis
+
+### 8. File Management (`AdminFiles.tsx`)
+**Features:**
+- Document management system
+- File organization by property and builder
+- Upload and download capabilities
+
+### 9. System Settings (`SystemSettings.tsx`)
+**Features:**
+- Admin configuration options
+- User management
+- System preferences
+
+## Data Models & Interfaces
+
+### Core Types (from `types/index.ts`)
+```typescript
+// Property lifecycle management
+Property: address, community, planNumber, stage, status, closingDate, contacts
+
+// Inspection workflow
+Inspection: type, status, scheduledDate, inspector, notes, photos, issues
+
+// Personnel management
+Inspector: specialties, serviceAreas, workload, performance metrics
+Builder: communities, totalProperties, correctionRate, contactInfo
+
+// Admin operations
+AdminKPI: metrics for dashboard display
+ActivityFeed: system activity tracking
+CorrectionRequest: builder-submitted fixes with photos
+Report: analytics and data export
+```
+
+### Mock Data Structure
+- **Properties**: 8 sample properties across different communities and stages
+- **Inspections**: 35+ inspections including new September/October 2025 events
+- **Inspectors**: 3 active inspectors with specialties and workloads
+- **Builders**: 5 builders including "HL Homes" with community associations
+- **Correction Requests**: Sample requests with photo attachments
+
+## Design System & UI/UX
+
+### Color Scheme
+- **Primary**: Blue (blue-600, blue-500) for primary actions
+- **Success**: Green for completed/passed states
+- **Warning**: Orange for in-progress/pending states
+- **Error**: Red for failed/urgent states
+- **Neutral**: Gray scale for backgrounds and text
+
+### Component Patterns
+- **Cards**: Rounded corners (rounded-2xl), subtle shadows, proper spacing
+- **Buttons**: Consistent hover states, proper contrast ratios
+- **Forms**: Clean inputs with focus states, validation feedback
+- **Tables**: Sortable headers, hover effects, responsive design
+- **Modals**: Backdrop blur, proper z-indexing, escape key handling
+
+### Responsive Design
+- **Mobile First**: Tailwind's mobile-first breakpoints
+- **Sidebar**: Collapses on mobile devices
+- **Tables**: Horizontal scroll on smaller screens
+- **Cards**: Stack on mobile, grid on larger screens
+
+### Dark Mode Implementation
+- Full dark mode support across all components
+- Consistent color mapping between light/dark themes
+- Proper contrast ratios maintained
+- Theme persistence (though not implemented in current version)
+
+## Recent Improvements & User Customizations
+
+### Search Bar Enhancement
+- Moved from right-aligned to center-aligned in header
+- Better visual prominence with shadow and rounded corners
+- Improved responsive behavior
+
+### Dashboard Simplification
+- Removed "System Health" and "Avg Days/Stage" KPI cards
+- Removed "Total Inspectors" card for cleaner 3-column layout
+- Eliminated priority indicators (high/medium/low) for cleaner design
+- Consistent activity card styling without color-coded priorities
+
+### Inspector Management Cleanup
+- Removed Michael Rodriguez from inspector data
+- Eliminated Active/Inactive status indicators and summary cards
+- Focused on essential information: contact details and service areas
+
+### Calendar Population
+- Added 18 additional inspection events across September/October 2025
+- Multiple events per day capability
+- Realistic inspection scheduling with proper time distribution
+- Enhanced event information display
+
+### Builder Data Updates
+- Highland Construction → HL Homes (including domain updates)
+- Positive messaging for inactive builders
+- Realistic correction rate metrics added
+
+### Review Center Photo Fix
+- Fixed broken external image URLs
+- Implemented direct photo display in correction requests
+- Replaced external Pexels URLs with local images (imgs/a1.jpg)
+- Proper photo grid layout and modal viewing
+
+### Navigation Fixes
+- Fixed Properties and Builders tab navigation issues
+- Added missing Plus icon import
+- Resolved correctionRate property missing from Builder interface
+- Clean error handling and debugging implementation
+
+## Development Notes
+
+### Code Quality
+- TypeScript strict mode enabled
+- Proper prop typing throughout
+- Consistent naming conventions
+- Modular component structure
+
+### Performance Considerations
+- useMemo for expensive calculations (filtering, sorting)
+- Efficient re-rendering with proper key props
+- Lazy loading considerations for large datasets
+- Optimized bundle size with proper imports
+
+### State Management
+- Local component state with useState
+- Derived state with useMemo
+- Props drilling for shared data (consider context for future scaling)
+- Mock data integration patterns established
+
+### Error Handling
+- Graceful fallbacks for missing data
+- Console logging for debugging
+- User-friendly error messages
+- Loading states for async operations
+
+## Future Enhancement Opportunities
+
+### Technical Improvements
+- Implement proper backend API integration
+- Add React Query for server state management
+- Implement proper authentication and authorization
+- Add form validation library (React Hook Form)
+- Real-time updates with WebSocket integration
+
+### Feature Enhancements
+- Drag-and-drop scheduling in calendar
+- Bulk photo upload for correction requests
+- Advanced filtering with date ranges
+- Export functionality for all data types
+- Push notifications for critical updates
+- Mobile app considerations
+
+### UI/UX Improvements
+- Loading skeletons for better perceived performance
+- Advanced search with filters
+- Keyboard navigation support
+- Better accessibility (ARIA labels, screen reader support)
+- Animation and micro-interactions
+
+### Data & Analytics
+- Real-time dashboard updates
+- Advanced reporting and analytics
+- Historical trend analysis
+- Performance benchmarking
+- Integration with external tools
+
+## File Structure Summary
+```
+src/
+├── components/admin/
+│   ├── AdminApp.tsx              # Main routing and layout
+│   ├── AdminDashboard.tsx        # Dashboard with KPIs and activity
+│   ├── PropertiesManagement.tsx  # Property listing and management
+│   ├── InspectorManagement.tsx   # Inspector profiles and assignments
+│   ├── CalendarScheduling.tsx    # Calendar and scheduling interface
+│   ├── BuilderManagement.tsx     # Builder profiles and metrics
+│   ├── InspectionReviewCenter.tsx # Correction review workflow
+│   ├── ReportsAnalytics.tsx      # Reports and analytics
+│   ├── AdminFiles.tsx            # File management
+│   ├── SystemSettings.tsx        # Admin configuration
+│   └── AdminAddProperty.tsx      # New property creation
+├── data/
+│   ├── mockData.ts               # Properties and inspections
+│   └── adminMockData.ts          # Admin-specific data
+├── types/
+│   └── index.ts                  # TypeScript definitions
+└── imgs/                         # Local image assets
+    └── a1.jpg                    # Correction photo example
+```
+
+## Summary
+The SystemHause Admin Portal is a comprehensive property inspection management system with a clean, modern interface built on React and TypeScript. It provides full lifecycle management for properties, inspectors, builders, and inspection workflows with emphasis on usability and clean design. The system successfully handles complex data relationships while maintaining a simple, intuitive user experience.
+
+Key strengths include the responsive design, comprehensive data management, and flexible component architecture that allows for easy customization and extension. The codebase is well-structured for future enhancements and backend integration.

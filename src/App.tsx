@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Home, 
-  Building2, 
-  Calendar, 
-  FileText, 
-  Plus, 
+import {
+  Home,
+  Building2,
+  Calendar,
+  FileText,
+  Plus,
   Search,
   Filter,
   Bell,
@@ -20,6 +20,7 @@ import DocumentsReports from './components/DocumentsReports';
 import AddProperty from './components/AddProperty';
 import RequestInspectionModal from './components/RequestInspectionModal';
 import UploadCorrections from './components/UploadCorrections';
+import AdminApp from './components/admin/AdminApp';
 import { Property, Inspection } from './types';
 import { mockProperties, mockInspections } from './data/mockData';
 
@@ -33,6 +34,13 @@ function App() {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAdminMode, setIsAdminMode] = useState(false);
+
+  // Check URL for admin mode
+  useEffect(() => {
+    const path = window.location.pathname;
+    setIsAdminMode(path.includes('/admin'));
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -66,12 +74,26 @@ function App() {
               <Building2 className="h-8 w-8 text-blue-600" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">SystemHause</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">MI Homes Portal</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {isAdminMode ? 'Admin Portal' : 'MI Homes Portal'}
+                </p>
               </div>
             </div>
           </div>
           
           <div className="flex items-center space-x-4">
+            <button
+              onClick={() => {
+                const newMode = !isAdminMode;
+                setIsAdminMode(newMode);
+                window.history.pushState({}, '', newMode ? '/admin' : '/');
+              }}
+              className="hidden sm:flex items-center space-x-2 px-3 py-2 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            >
+              <Settings className="h-4 w-4" />
+              <span>{isAdminMode ? 'Builder View' : 'Admin View'}</span>
+            </button>
+
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -92,9 +114,13 @@ function App() {
             
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-sm font-medium text-white">JD</span>
+                <span className="text-sm font-medium text-white">
+                  {isAdminMode ? 'SA' : 'JD'}
+                </span>
               </div>
-              <span className="text-sm font-medium text-gray-900 dark:text-white hidden sm:block">John Davis</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white hidden sm:block">
+                {isAdminMode ? 'Stan' : 'John Davis'}
+              </span>
             </div>
           </div>
         </div>
@@ -190,10 +216,15 @@ function App() {
     }
   };
 
+  // If in admin mode, render AdminApp
+  if (isAdminMode) {
+    return <AdminApp />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
       {renderHeader()}
-      
+
       <main className="pb-20">
         {renderContent()}
       </main>

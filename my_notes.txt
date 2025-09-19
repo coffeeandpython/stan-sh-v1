@@ -1,0 +1,45 @@
+This is how I see the app working:
+
+- Forget folders. We're building an independant software for the client. Imagine properties/records, stages, forms and documents -> this would be the modern and organized way. You will have a better understanding once you read through my flow below.
+- No need to Interface with Texas A&M Energy Systems Laboratory (IC3 software) for now.
+Let me explain to you how I think the software would work as a flow. There will be logins for 3 parties -> Builders (like MI Homes with mihomes.com based logins as you explained), inspectors (or whatever the client called them. there are 3 right now) and the Admin (the client himself).
+Builder:
+- Adds a new property with required info (you know what's needed here). While entering address, we can show suggestions from Google Maps.
+- Then can request a pre-rock inspection for it (you know what's needed from the builder, lets keep it minimal for now)
+Admin:
+- The request is auto-assigned to an inspector based on our smart rules set on the backend
+- Admin can still re-assign the inspection to a different inspector
+- There is a shared calendar view with edit and filter options - to show various appointments
+Inspector:
+- Receives email notification when an inspection is assigned to them with details
+- Calendar event added on his login as well with closing date, contact details, etc. in the event details. This inspector can still see other people's events as well. This is like a shared calendar.
+- In the dashboard though, they can only see properties assigned to them
+- They click on any of it, fill the form, attach photos, approve or deny.
+Builder and Admin receive email notification for any of the actions taken.
+Builder:
+- (Assuming Denied by Inspector above) Builder can upload correction photos, add a note optionally and submit it
+Admin/Inspector:
+Either of them can review the submission from above and then approve or deny the correction thereby changing the status of the inspection.
+Builder:
+- (Assuming approval in the above step or the step above it) can download the certificate/report (whatever is relevant)
+- Submit inspection request for the next step, i.e. Poly Test
+Then the same flow as above happens.
+After passing poly test:
+Builder:
+- Optionally can submit Blower Door Testing and Final Inspection request at the same time. (You know what info might be needed for the request. Lets keep them minimal for now)
+Admin:
+- Can approve/deny just one of them if both have been selected
+Builder:
+Same flow as above
+Important Note:
+Client says the industry as a whole suffers from a major ADHD problem. So, lets have a Uber like style while designing the software. Lets have a visual style for the software. In the dashboard, I can think of some important things to include - we clearly show which stage of inspection a property is in in a column and then in another column, clearly indicate something Green, Red and Orange. Green is when the stage requested is passed. Red when inspection denied/rejected. Orange when the request, correction request is in process by my client. This way, they know at a glance - Uber style.
+
+Other features added
+
+Bulk Actions: Since Stan handles 3,000+ homes annually, builders might want to request inspections for multiple properties at once, especially in the same community.
+Rescheduling Flow: The transcript mentioned that "houses may not be ready" and cancellations happen. Need a simple way for builders to reschedule without admin intervention.
+Historical Data: Builders downloading past reports was mentioned as important - they lose emails and need to re-access documents.
+Community/Builder Management: Admin needs to add new builders, assign them to communities, and manage which inspectors cover which areas.
+Search & Filtering: With thousands of properties, robust search by address, community, status, date range will be essential.
+Photo Comparison Tool: Stan emphasized the importance of verifying correction photos match the original issue locations - side-by-side comparison might help.
+Closing Date Tracking: Since final inspections must happen before closing, some kind of alert system for approaching closing dates without scheduled finals.
