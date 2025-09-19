@@ -1,0 +1,225 @@
+# Inspector Portal (SystemHause) - Complete Functionality Documentation
+
+## Overview
+The Inspector Portal is a mobile-first web application designed for field inspectors conducting energy code inspections on construction sites. Accessed at `/ins/` route, optimized for phone/tablet use with large touch targets and offline capability.
+
+## Current Inspector: David Chen (DC)
+- Email: david.chen@systemhause.com
+- Specialties: pre-rock, poly-test, final
+- Service Areas: Meadow Park, Stone Haven, Oak Ridge
+- Auto-authenticated when accessing /ins/ route
+
+## Core Architecture
+
+### Main Files:
+- `src/components/inspector/InspectorApp.tsx` - Main routing component
+- `src/components/inspector/InspectorDashboard.tsx` - Today's schedule view
+- `src/components/inspector/InspectorSchedule.tsx` - Calendar schedule view
+- `src/components/inspector/InspectorHistory.tsx` - Past inspections
+- `src/components/inspector/InspectorSettings.tsx` - Empty settings placeholder
+- `src/components/inspector/InspectionForm.tsx` - Mobile inspection form
+- `src/components/inspector/PropertyInspection.tsx` - Property details
+- `src/components/inspector/PhotoManager.tsx` - Photo capture/management
+- `src/components/inspector/InspectionReview.tsx` - Final review before submission
+
+### Mobile Navigation:
+Bottom tab navigation with 4 tabs:
+1. **Today** (Home) - Dashboard with today's inspections
+2. **Schedule** (Calendar) - Full schedule view
+3. **History** (FileText) - Completed inspections
+4. **Settings** (Settings) - Empty placeholder for future features
+
+## Key Features
+
+### 1. Today's Dashboard
+- **Welcome header** with inspector's first name and current date
+- **Statistics cards**: Total, Done, Active, Pending inspections
+- **Today's inspections list** with:
+  - Property address and community info
+  - Inspection time and type
+  - Site contact phone number
+  - Status indicators (scheduled, in-progress, passed, failed)
+  - Action buttons: Start/Continue/View Report, Navigate (Google Maps), Call
+- **Large touch targets** (min 48px) optimized for field use
+- **Fixed demo date**: September 19, 2025 for consistent demo experience
+
+### 2. Inspection Workflow
+**Start Inspection → Inspection Form → Photo Manager → Review → Submit**
+
+#### Inspection Form:
+- **Progress bar** showing completion percentage
+- **Property context** always visible at top
+- **Pass/Fail toggle** with prominent visual feedback
+- **Issues tracking** with severity levels (High, Medium, Low)
+- **Photo capture** integrated with native camera
+- **Auto-save drafts** to prevent data loss
+- **Mobile-optimized** with large inputs and buttons
+
+#### Photo Manager:
+- **Camera integration** for taking photos
+- **Photo gallery** with thumbnails
+- **Issue tagging** - associate photos with specific issues
+- **Upload progress** indicators
+- **Mobile file handling** optimized
+
+#### Review & Submit:
+- **Summary overview** of all form data
+- **Photo review** with issue associations
+- **Final status** confirmation
+- **Submit for approval** workflow
+
+### 3. Property Details
+- **Property information** display
+- **Inspection history** for the property
+- **Quick actions**: Start inspection, View photos
+- **Site contact** information
+- **Navigation** to Google Maps
+
+### 4. Schedule Management
+- **Calendar view** of all assigned inspections
+- **Filter by date** and status
+- **Inspection details** in cards
+- **Quick start** from schedule view
+
+### 5. History & Reports
+- **Past inspections** chronologically
+- **Status filtering** (passed, failed, pending)
+- **Photo galleries** for each inspection
+- **Export capabilities** for reports
+
+## Mobile-First Design Principles
+
+### Touch Targets:
+- **Minimum 44px** for all interactive elements
+- **48px+ recommended** for primary actions
+- **Large buttons** with adequate spacing
+
+### Typography:
+- **Readable text sizes** (16px minimum)
+- **High contrast** for outdoor visibility
+- **Clear hierarchy** with bold headings
+
+### Layout:
+- **Single column** layouts
+- **Card-based** information architecture
+- **Sticky headers** for navigation context
+- **Bottom navigation** for thumb-friendly access
+- **Safe areas** respected for notched devices
+
+### Performance:
+- **Lazy loading** for images
+- **Offline capability** for forms
+- **Fast transitions** between views
+- **Minimal data usage** considerations
+
+## Data Integration
+
+### Mock Data:
+- **Properties**: `src/data/mockData.ts`
+- **Inspections**: Filtered by inspector name "David Chen"
+- **Demo dates**: September 19, 2025 set as "today"
+
+### Inspection Types:
+- pre-rock (Pre-drywall)
+- poly-test (Blower door test)
+- final (Final inspection)
+- blower-door (Air sealing test)
+
+### Status Flow:
+scheduled → in-progress → passed/failed → completed
+
+## Authentication & Routing
+
+### URL Structure:
+- `/ins/` - Inspector portal (auto-authenticates David Chen)
+- `/admin` - Admin portal (auto-authenticates)
+- `/` - Builder portal (requires login)
+
+### Auto-authentication:
+Inspector mode automatically logs in David Chen when accessing /ins/ route - no login required for field efficiency.
+
+## Technical Implementation
+
+### State Management:
+- **Local state** with React hooks
+- **View routing** within InspectorApp
+- **Property/inspection** selection state
+- **Form data** persistence
+
+### Mobile Considerations:
+- **Touch events** properly handled
+- **Keyboard behavior** optimized
+- **Camera API** integration
+- **File upload** handling
+- **Network connectivity** awareness
+
+### Styling:
+- **Tailwind CSS** with dark mode support
+- **Mobile-first** responsive design
+- **Custom safe area** handling
+- **Touch-friendly** hover states
+
+## Content Padding & Scrolling:
+- **Main container**: pb-32 (prevents bottom nav overlap)
+- **Page containers**: pb-16 (ensures full scrollability)
+- **Form containers**: pb-20 (extra space for inputs)
+- **All content** scrollable to bottom without nav interference
+
+## Future Enhancements (Settings Placeholder)
+The Settings tab is intentionally empty, ready for:
+- Inspector profile management
+- Offline sync preferences
+- Photo quality settings
+- Notification preferences
+- App version/update info
+- Logout functionality
+
+## Development Notes
+
+### Key Components Relationships:
+```
+InspectorApp (main router)
+├── InspectorDashboard (today's view)
+├── InspectorSchedule (calendar view)
+├── InspectorHistory (past inspections)
+├── InspectorSettings (empty placeholder)
+├── PropertyInspection (property details)
+├── InspectionForm (main form)
+├── PhotoManager (photo handling)
+└── InspectionReview (final review)
+```
+
+### Navigation Flow:
+- **Bottom tabs** for main sections
+- **Back buttons** for sub-views
+- **Breadcrumb context** in headers
+- **Quick actions** from dashboard cards
+
+### Demo Data Setup:
+- **September 19, 2025** as fixed "today"
+- **Multiple inspection types** scheduled
+- **Different statuses** for testing
+- **Realistic property data** with addresses
+
+## Testing Scenarios
+
+### Login Flow (Builder Portal):
+1. Access `/` shows two-step login
+2. Email must end with `@mihomes.com`
+3. OTP must be `111111`
+4. Other domains show "User doesn't exist"
+5. Wrong OTP shows "Invalid OTP"
+
+### Inspector Flow:
+1. Access `/ins/` auto-authenticates David Chen
+2. Dashboard shows September 19, 2025 inspections
+3. Start inspection → form → photos → review → submit
+4. All content scrollable past bottom navigation
+5. Touch targets 48px+ for field use
+
+### Admin Flow:
+1. Access `/admin` shows admin interface
+2. Auto-authenticates as Stan (SA)
+3. Full admin functionality available
+
+This documentation ensures any future developer can understand the complete inspector portal functionality and continue development seamlessly.

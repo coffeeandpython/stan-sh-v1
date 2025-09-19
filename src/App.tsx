@@ -22,6 +22,7 @@ import RequestInspectionModal from './components/RequestInspectionModal';
 import UploadCorrections from './components/UploadCorrections';
 import AdminApp from './components/admin/AdminApp';
 import InspectorApp from './components/inspector/InspectorApp';
+import Login from './components/Login';
 import { Property, Inspection } from './types';
 import { mockProperties, mockInspections } from './data/mockData';
 
@@ -37,12 +38,20 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [isInspectorMode, setIsInspectorMode] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   // Check URL for admin or inspector mode
   useEffect(() => {
     const path = window.location.pathname;
     setIsAdminMode(path.includes('/admin'));
     setIsInspectorMode(path.includes('/ins/'));
+
+    // Auto-authenticate for admin and inspector modes
+    if (path.includes('/admin') || path.includes('/ins/')) {
+      setIsAuthenticated(true);
+      setUserEmail(path.includes('/admin') ? 'admin@systemhause.com' : 'david.chen@systemhause.com');
+    }
   }, []);
 
   useEffect(() => {
@@ -66,6 +75,11 @@ function App() {
   const handleBackToDashboard = () => {
     setCurrentView('dashboard');
     setSelectedProperty(null);
+  };
+
+  const handleLogin = (email: string) => {
+    setIsAuthenticated(true);
+    setUserEmail(email);
   };
 
   const renderHeader = () => (
@@ -161,14 +175,6 @@ function App() {
     </nav>
   );
 
-  const renderFloatingActionButton = () => (
-    <button
-      onClick={() => setCurrentView('add-property')}
-      className="fixed bottom-20 right-6 z-40 w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center group active:scale-95"
-    >
-      <Plus className="h-6 w-6 text-white group-hover:rotate-90 transition-transform duration-200" />
-    </button>
-  );
 
   const renderContent = () => {
     switch (currentView) {
@@ -231,6 +237,11 @@ function App() {
     return <InspectorApp />;
   }
 
+  // If not authenticated (builder mode), show login
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-200">
       {renderHeader()}
@@ -240,7 +251,6 @@ function App() {
       </main>
 
       {renderBottomNav()}
-      {renderFloatingActionButton()}
 
       {showRequestModal && selectedProperty && (
         <RequestInspectionModal

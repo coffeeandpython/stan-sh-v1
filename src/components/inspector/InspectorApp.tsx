@@ -13,7 +13,7 @@ import {
 import InspectorDashboard from './InspectorDashboard';
 import InspectorSchedule from './InspectorSchedule';
 import InspectorHistory from './InspectorHistory';
-import InspectorProfile from './InspectorProfile';
+import InspectorSettings from './InspectorSettings';
 import PropertyInspection from './PropertyInspection';
 import InspectionForm from './InspectionForm';
 import PhotoManager from './PhotoManager';
@@ -121,7 +121,7 @@ function InspectorApp() {
             { key: 'dashboard', icon: Home, label: 'Today' },
             { key: 'schedule', icon: Calendar, label: 'Schedule' },
             { key: 'history', icon: FileText, label: 'History' },
-            { key: 'profile', icon: Settings, label: 'Profile' },
+            { key: 'profile', icon: Settings, label: 'Settings' },
           ].map(({ key, icon: Icon, label }) => (
             <button
               key={key}
@@ -172,11 +172,7 @@ function InspectorApp() {
           />
         );
       case 'profile':
-        return (
-          <InspectorProfile
-            inspectorName={inspectorName}
-          />
-        );
+        return <InspectorSettings />;
       case 'property':
         return selectedProperty ? (
           <PropertyInspection

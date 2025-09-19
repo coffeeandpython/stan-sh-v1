@@ -109,26 +109,17 @@ function InspectorDashboard({
     <div className="max-w-md mx-auto p-4 space-y-6 pb-16">
       {/* Welcome Header */}
       <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Good morning, {inspectorName.split(' ')[0]}!
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
-              {new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
-          </div>
-          <div className="text-right">
-            <div className="flex items-center space-x-2 text-blue-600">
-              <Sun className="h-5 w-5" />
-              <span className="font-medium">74°F</span>
-            </div>
-            <p className="text-sm text-gray-500 mt-1">Perfect for inspections</p>
-          </div>
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Good morning, {inspectorName.split(' ')[0]}!
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            {new Date().toLocaleDateString('en-US', {
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </p>
         </div>
 
         {/* Today's Stats */}
@@ -275,20 +266,6 @@ function InspectorDashboard({
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-2 gap-3">
-          <button className="flex items-center justify-center space-x-2 p-4 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-xl transition-colors min-h-[56px]">
-            <Phone className="h-5 w-5" />
-            <span className="font-medium">Call Admin</span>
-          </button>
-          <button className="flex items-center justify-center space-x-2 p-4 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-700 dark:text-red-400 rounded-xl transition-colors min-h-[56px]">
-            <AlertCircle className="h-5 w-5" />
-            <span className="font-medium">Emergency</span>
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
