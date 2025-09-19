@@ -12,7 +12,8 @@ import {
   Sun,
   Search,
   Filter,
-  Plus
+  Plus,
+  Bot
 } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
 import PropertiesManagement from './PropertiesManagement';
@@ -24,11 +25,12 @@ import ReportsAnalytics from './ReportsAnalytics';
 import SystemSettings from './SystemSettings';
 import AdminAddProperty from './AdminAddProperty';
 import AdminFiles from './AdminFiles';
+import AutomationsCenter from './AutomationsCenter';
 import { Property, Inspection, Inspector, Builder } from '../../types';
 import { mockProperties, mockInspections } from '../../data/mockData';
 import { mockInspectors, mockBuilders, mockAdminKPI, mockActivityFeed, mockCorrectionRequests } from '../../data/adminMockData';
 
-type AdminView = 'dashboard' | 'properties' | 'inspectors' | 'calendar' | 'builders' | 'review' | 'reports' | 'files' | 'settings' | 'add-property';
+type AdminView = 'dashboard' | 'properties' | 'inspectors' | 'calendar' | 'builders' | 'review' | 'reports' | 'files' | 'automations' | 'settings' | 'add-property';
 
 function AdminApp() {
   const [currentView, setCurrentView] = useState<AdminView>('dashboard');
@@ -56,6 +58,7 @@ function AdminApp() {
     { key: 'calendar', icon: Calendar, label: 'Calendar', badge: null },
     { key: 'builders', icon: Building2, label: 'Builders', badge: builders.length },
     { key: 'review', icon: ClipboardCheck, label: 'Review Center', badge: mockCorrectionRequests.filter(c => c.status === 'pending').length },
+    { key: 'automations', icon: Bot, label: 'Automations', badge: 4 },
     { key: 'reports', icon: BarChart3, label: 'Reports', badge: null },
     { key: 'files', icon: FileText, label: 'Files', badge: null },
     { key: 'settings', icon: Settings, label: 'Settings', badge: null }
@@ -181,6 +184,8 @@ function AdminApp() {
         return <BuilderManagement {...contentProps} />;
       case 'review':
         return <InspectionReviewCenter {...contentProps} />;
+      case 'automations':
+        return <AutomationsCenter />;
       case 'reports':
         return <ReportsAnalytics {...contentProps} />;
       case 'files':
