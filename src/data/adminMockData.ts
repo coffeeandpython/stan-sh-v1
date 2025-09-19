@@ -235,7 +235,7 @@ export const mockCorrectionRequests: CorrectionRequest[] = [
     builderNotes: 'Electrical panel has been rewired according to code. Licensed electrician completed work.',
     photos: [
       'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'imgs/a1.jpg'
+      '/imgs/a1.jpg'
     ],
     status: 'pending',
     submittedDate: '2025-10-04T14:30:00Z'
