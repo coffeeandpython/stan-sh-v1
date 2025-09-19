@@ -99,20 +99,6 @@ function App() {
           </div>
           
           <div className="flex items-center space-x-4">
-            {!isInspectorMode && (
-              <button
-                onClick={() => {
-                  const newMode = !isAdminMode;
-                  setIsAdminMode(newMode);
-                  window.history.pushState({}, '', newMode ? '/admin' : '/');
-                }}
-                className="hidden sm:flex items-center space-x-2 px-3 py-2 text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-              >
-                <Settings className="h-4 w-4" />
-                <span>{isAdminMode ? 'Builder View' : 'Admin View'}</span>
-              </button>
-            )}
-
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
