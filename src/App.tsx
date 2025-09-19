@@ -44,13 +44,16 @@ function App() {
   // Check URL for admin or inspector mode
   useEffect(() => {
     const path = window.location.pathname;
-    setIsAdminMode(path.includes('/admin'));
-    setIsInspectorMode(path.includes('/ins/'));
+    const isAdmin = path.includes('/admin');
+    const isInspector = path.includes('/ins/');
+
+    setIsAdminMode(isAdmin);
+    setIsInspectorMode(isInspector);
 
     // Auto-authenticate for admin and inspector modes
-    if (path.includes('/admin') || path.includes('/ins/')) {
+    if (isAdmin || isInspector) {
       setIsAuthenticated(true);
-      setUserEmail(path.includes('/admin') ? 'admin@systemhause.com' : 'david.chen@systemhause.com');
+      setUserEmail(isAdmin ? 'admin@systemhause.com' : 'david.chen@systemhause.com');
     }
   }, []);
 
@@ -213,13 +216,16 @@ function App() {
     }
   };
 
+  // Check URL immediately for special modes (bypass authentication)
+  const currentPath = window.location.pathname;
+
   // If in admin mode, render AdminApp
-  if (isAdminMode) {
+  if (isAdminMode || currentPath.includes('/admin')) {
     return <AdminApp />;
   }
 
-  // If in inspector mode, render InspectorApp
-  if (isInspectorMode) {
+  // If in inspector mode, render InspectorApp (no authentication required)
+  if (isInspectorMode || currentPath.includes('/ins/')) {
     return <InspectorApp />;
   }
 

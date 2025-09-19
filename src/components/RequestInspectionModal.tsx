@@ -97,8 +97,15 @@ const RequestInspectionModal: React.FC<RequestInspectionModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!selectedType || selectedProperties.length === 0 || (property && (!selectedDate || !selectedTime))) {
+
+    // For single property: require type, date, and time
+    // For bulk request: only require type and selected properties
+    if (!selectedType || selectedProperties.length === 0) {
+      return;
+    }
+
+    // Only require date/time for single property requests
+    if (property && (!selectedDate || !selectedTime)) {
       return;
     }
 
@@ -307,7 +314,7 @@ const RequestInspectionModal: React.FC<RequestInspectionModalProps> = ({
             )}
 
             {/* Notes */}
-            {(selectedTime || (!property && selectedProperties.length > 0)) && (
+            {((property && selectedTime) || (!property && selectedProperties.length > 0)) && (
               <div>
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
                   Special Notes (Optional)
@@ -323,27 +330,29 @@ const RequestInspectionModal: React.FC<RequestInspectionModalProps> = ({
             )}
 
             {/* Summary */}
-            {selectedInspectionType && ((property && selectedDate && selectedTime) || (!property && selectedProperties.length > 0)) && (
+            {selectedInspectionType && (
+              (property ? (selectedDate && selectedTime) : (selectedProperties.length > 0))
+            ) && (
               <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
                 <h4 className="font-medium text-gray-900 dark:text-white mb-2">Inspection Summary</h4>
                 <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                   <p><strong>Properties:</strong> {selectedProperties.length} selected</p>
                   <p><strong>Type:</strong> {selectedInspectionType.name}</p>
-                  {property && selectedDate && (
+                  {property && selectedDate && selectedTime && (
                     <>
-                      <p><strong>Date:</strong> {new Date(selectedDate).toLocaleDateString('en-US', { 
-                        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' 
+                      <p><strong>Date:</strong> {new Date(selectedDate).toLocaleDateString('en-US', {
+                        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
                       })}</p>
                       <p><strong>Time:</strong> {selectedTime}</p>
                     </>
                   )}
                   {!property && closingDate && (
-                    <p><strong>Target Closing:</strong> {new Date(closingDate).toLocaleDateString('en-US', { 
-                      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' 
+                    <p><strong>Target Closing:</strong> {new Date(closingDate).toLocaleDateString('en-US', {
+                      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
                     })}</p>
                   )}
                   <p><strong>Duration:</strong> {selectedInspectionType.estimatedTime}</p>
-                  {!property && <p className="text-orange-600 dark:text-orange-400"><strong>Note:</strong> Individual scheduling will be coordinated separately</p>}
+                  {!property && <p className="text-blue-600 dark:text-blue-400"><strong>Note:</strong> Individual scheduling will be coordinated by SystemHause</p>}
                 </div>
               </div>
             )}
@@ -360,9 +369,17 @@ const RequestInspectionModal: React.FC<RequestInspectionModalProps> = ({
               
               <button
                 type="submit"
-                disabled={!selectedType || selectedProperties.length === 0 || (property && (!selectedDate || !selectedTime)) || isSubmitting}
+                disabled={
+                  !selectedType ||
+                  selectedProperties.length === 0 ||
+                  (property && (!selectedDate || !selectedTime)) ||
+                  isSubmitting
+                }
                 className={`flex-1 py-3 px-6 rounded-xl font-medium transition-all duration-200 ${
-                  !selectedType || selectedProperties.length === 0 || (property && (!selectedDate || !selectedTime)) || isSubmitting
+                  !selectedType ||
+                  selectedProperties.length === 0 ||
+                  (property && (!selectedDate || !selectedTime)) ||
+                  isSubmitting
                     ? 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                     : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl active:scale-[0.98]'
                 }`}
